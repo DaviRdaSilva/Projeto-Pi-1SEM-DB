@@ -32,15 +32,6 @@ CREATE TABLE Usuario (
 			REFERENCES Usuario(idUsuario)
 );
 
--- Criação da tabela onde ficara guardado os limites(min e max) dos sensores
--- CREATE TABLE Limite_Parametros(
--- 	idLimite INT PRIMARY KEY AUTO_INCREMENT, -- Primeiro componente da Chave Primaria
---     Minimo FLOAT, -- Valor minimo de temp. que pode receber da leitura sem danificar o produto 
---     Maximo FLOAT, -- Valor maximo de temp. que pode receber da leitura sem danificar o produto 
---     Tipo VARCHAR(50),
---     Componente VARCHAR(80)
--- );
-
 -- Criação da tabela onde ficara as informações do local onde será retirada as leituras
 CREATE TABLE Localização(
 	idLocal INT PRIMARY KEY AUTO_INCREMENT, -- Chave Primaria
