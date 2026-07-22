@@ -33,15 +33,12 @@ CREATE TABLE Usuario (
 );
 
 -- Criação da tabela onde ficara as informações do local onde será retirada as leituras
-CREATE TABLE Localização(
+CREATE TABLE Localizacao(
 	idLocal INT PRIMARY KEY AUTO_INCREMENT, -- Chave Primaria
     Nome VARCHAR(80), -- Nome do Local EX(Sala 01,Sala 02)
     FKEmpresa INT, -- Chave Estrangeira da Tabela Empresa
 		CONSTRAINT FKEmpresa_L FOREIGN KEY (FKEmpresa)
 			REFERENCES Empresa(idEmpresa)
-	-- FKLimite INT, -- Chave Estrangeira da parametrização de limites (1-n)
-	-- 	CONSTRAINT FKLimite_L FOREIGN KEY (FKLimite) 
-	-- 		REFERENCES Limite_Parametros(idLimite)
 );
 
 -- Criação de uma tabela exclusiva para os sensores (não para os resultados somente para os sensores)
@@ -51,7 +48,7 @@ CREATE TABLE Sensores(
     Tipo VARCHAR(30), -- Tipagem do Sensor EX(Temperatura,Umidade,Luminosidade)
     FKLocal_S INT, -- Chave Estrangeira da Tabela Localizaçao
 		CONSTRAINT FKLocal_S FOREIGN KEY (FKLocal_S)
-			REFERENCES Localização(idLocal)
+			REFERENCES Localizacao(idLocal)
 );
 
 -- Criação da tabela que fara o Relacionamento dos sensores com os resultados e os clientes
@@ -61,11 +58,8 @@ CREATE TABLE Leitura (
     Leitura_Umi FLOAT, 
     Data_Hora DATETIME DEFAULT CURRENT_TIMESTAMP, -- Data e hora em que os resultados foram computados
     FKLocal_LE INT, -- Componente da Chave Primaria que refere a Tabela Sensores
-    -- FKLimite_LE INT,
 		CONSTRAINT FKLocal_LE FOREIGN KEY (FKLocal_LE)
-			REFERENCES Localização(idLocal)
-		-- CONSTRAINT FKLimite_LE FOREIGN KEY (FKLimite_LE)
-		-- 	REFERENCES Limite_Parametros(idLimite)
+			REFERENCES Localizacao(idLocal)
 );
 
 INSERT INTO Empresa VALUES
@@ -83,7 +77,17 @@ INSERT INTO Usuario VALUES
 		'12345678901', '11959164441', 'teste011234', 2, NULL),
 	(NULL, 'Simone Lopes', 'simonelopes@gmail.com', 
 		'98765432109', '11959164441', 'teste021234', 3, NULL);
+        
+INSERT INTO Localizacao VALUES
+	(NULL, "Container 001", 1),
+    (NULL, "Container 002", 1),
+    (NULL, "Container 003", 2),
+    (NULL, "Container 004", 2),
+    (NULL, "Container 005", 3);
     
-    SELECT * FROM Usuario;
-    
-    SELECT * FROM Localização;
+INSERT INTO Sensores VALUES
+	(NULL, "Sensor 001", "Temperatura",1),(NULL, "Sensor 002", "Umidade",1),
+	(NULL, "Sensor 003", "Temperatura",2),(NULL, "Sensor 004", "Umidade",2),
+    (NULL, "Sensor 005", "Temperatura",3),(NULL, "Sensor 006", "Umidade",3),
+    (NULL, "Sensor 007", "Temperatura",4),(NULL, "Sensor 008", "Umidade",4),
+    (NULL, "Sensor 009", "Temperatura",5),(NULL, "Sensor 010", "Umidade",5);
